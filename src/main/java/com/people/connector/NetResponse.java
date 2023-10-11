@@ -7,6 +7,12 @@ public class NetResponse {
         this.status = status;
         this.data = data;
     }
+    public NetResponse(String message, int status,int errorCode, Object data) {
+        this.message = message;
+        this.status = status;
+        this.data = data;
+        this.errorCode = errorCode;
+    }
 
     public String getMessage() {
         return message;
@@ -32,7 +38,16 @@ public class NetResponse {
         this.data = data;
     }
 
+    public int getErrorCode() {
+        return errorCode;
+    }
+
+    public void setErrorCode(int errorCode) {
+        this.errorCode = errorCode;
+    }
+
     private String message;
     private int status;
+    private int errorCode = 0;
     Object data;
 }

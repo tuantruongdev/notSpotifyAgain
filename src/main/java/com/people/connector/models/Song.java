@@ -1,9 +1,9 @@
 package com.people.connector.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.ArrayList;
 
@@ -12,13 +12,30 @@ public class Song {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    @ColumnDefault("1")
+    private long uploaderId;
     private String name;
+    @ManyToOne
+    @JoinColumn(name = "file_id")
+    private FileStorage file;
+
+    @Transient
+    private long fileId;
     private long authorId;
     private String backgroundVideo;
+    @ColumnDefault("1")
     private long lyricsId;
     private ArrayList<Integer> genreList;
 
-    public Song(long id, String name, long authorId, String backgroundVideo, long lyricsId, ArrayList<Integer> genreList) {
+    @CreationTimestamp
+    private long createAt;
+    @UpdateTimestamp
+    private long updateAt;
+
+
+    public Song(){}
+
+    public Song(long id, String name, long authorId, String backgroundVideo, long lyricsId, ArrayList<Integer> genreList, long createAt, Long updateAt) {
         this.id = id;
         this.name = name;
         this.authorId = authorId;
@@ -27,7 +44,13 @@ public class Song {
         this.genreList = genreList;
     }
 
-    public Song(){}
+    public FileStorage getFile() {
+        return file;
+    }
+
+    public void setFile(FileStorage file) {
+        this.file = file;
+    }
 
     public long getId() {
         return id;
@@ -35,6 +58,18 @@ public class Song {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public long getUploaderId() {
+        return uploaderId;
+    }
+
+    public void setUploaderId(long uploaderId) {
+        this.uploaderId = uploaderId;
+    }
+
+    public void setUpdateAt(long updateAt) {
+        this.updateAt = updateAt;
     }
 
     public String getName() {
@@ -75,5 +110,29 @@ public class Song {
 
     public void setGenreList(ArrayList<Integer> genreList) {
         this.genreList = genreList;
+    }
+
+    public long getCreateAt() {
+        return createAt;
+    }
+
+    public void setCreateAt(long createAt) {
+        this.createAt = createAt;
+    }
+
+    public Long getUpdateAt() {
+        return updateAt;
+    }
+
+    public void setUpdateAt(Long updateAt) {
+        this.updateAt = updateAt;
+    }
+
+    public long getFileId() {
+        return fileId;
+    }
+
+    public void setFileId(long fileId) {
+        this.fileId = fileId;
     }
 }

@@ -9,7 +9,7 @@ public class StorageProperties {
     /**
      * Folder location for storing files
      */
-    private String location = "music";
+    private String location = "src/main/resources/music";
 
     public String getLocation() {
         return location;
